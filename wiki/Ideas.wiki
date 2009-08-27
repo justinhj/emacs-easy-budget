@@ -2,13 +2,12 @@
 
 = Ideas =
 
-* Let user pass in format function for specifying output format
-* Monthly and bi monthly payments, user should specify the calendar days they fall one
-* Sort transactions by date, currently they're not quite by date, just in weekly chunks
-* Kind of weird how weekly budget stuff is calculated, needs to pro-rate? 
-* Integrate with a budget worksheet
-* Allow user to specify a parser to grab bills from their bank statement
-* Customize variable for output folder
-* Customize variable for month day order on date input
-* Better front end for non-elisp users (eg: emacs diary)
-
+  * Let user pass in format function for specifying output format
+  * Monthly and bi monthly payments, user should specify the calendar days they fall one
+  * Sort transactions by date, currently they're not quite by date, just in weekly chunks
+  * Kind of weird how weekly budget stuff is calculated, needs to pro-rate? 
+  * Integrate with a budget worksheet
+  * Allow user to specify a parser to grab bills from their bank statement
+  * Customize variable for output folder
+  * Customize variable for month day order on date input
+  * Better front end for non-elisp users (eg: emacs diary)
