@@ -1,4 +1,4 @@
-#summary Notes on the source code
+#sidebar TableOfContents
 
 = Code road map =
 
@@ -37,4 +37,3 @@ In a future version I will separate the calculation of the forecast transactions
 Finally look at the structure definition for expense. This holds everything about an item that's important. The date it was last paid, and it's next due date, as well as the initial user information.
 
 Next [Ideas]
-
