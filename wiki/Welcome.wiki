@@ -1,0 +1,50 @@
+#summary Introduction and getting started
+
+= Introduction =
+
+emacs-easy-budget is a simple tool for producing short term forecasts of your bank balance.
+
+This was written as an exercise in learning emacs lisp but became useful enough that I use it for my own finances. 
+
+Currently the user has to edit an elisp document and evaluate the buffer to generate the programs output (which goes to a buffer that is also written to a file named finances-082509.csv (Where the date is appended when you run the program).
+
+Not particularly user friendly of course, and in future I may set this up to a read a file in a similar format to the emacs diary.
+
+In addition user customization of the program output such as where the output file is stored and the format of each entry, would be useful and simple to add.  
+
+= Making your own budget forecast =
+
+*Step 1: Edit the file sample.el to include your own expenses and incomes*
+
+Hopefully you have at least one income. You enter the amount as negative, since by default amounts are subtracted from the balance. _make-new-expense_ sets up a structure containing the data for a single expense/income. The first parameter is just a name, any string you like that describes the item. The next is the amount -1000 which can have a decimal point. Then there's a date, which is the last day this was paid, and is used to calculate when future items will occur. Dates are entered a as list containing the day month and year. I should add an option to let you reverse the format (dd mm yyyy). You can enter a two digit year if you prefer and it will be adjusted to a four digit one. Finally 'monthly indicates that this item that item will happen again in one month. Other supported options are 'bimonthly, 'biweekly and 'weekly.
+
+   (make-new-expense "salary" -1000 '(1 8 2009) 'monthly)
+
+Now add your regular bills, such as utilities, cable and so on. The format is identical to income except now the amount is positive. There's no need to arrange incomes, bills and budget items in any particular order.
+
+   (make-new-expense "car loan" 40 '(12 8 2009) 'biweekly)
+
+Now enter your budget amounts. I find it best to make these 'weekly. These are the most useful things in the budget because you can easily vary the amounts you allocate to each item, something you can't do so easily with bills. 
+
+*Step 2: Update the last paid dates*
+
+Download your bank statement, or look at it online. For each regular bill and income you need to update the last paid date to match. Each time you run the budget to see how you're doing you need to do this step. If an item gets too far behind, say a monthly item is not marked as paid, then that items due date will be in the past when you do your budget forecast and it will be omitted. I may fix this in the future but for now it's important to make sure you update the last paid date, and to check that when you do your forecast, nothing is being left off. 
+
+*Step 3: Run the budget forecast*
+
+The function 'forecast-to-csv' does all the work of the budget forecast and this simple function just calls it with the bills we just created.
+
+You need to edit the code so that today is set to the current date (or the date you want to start the budget forecast if different). 
+
+{{{
+(defun sample()
+  (let ((today '(25 8 2009))) ; set this to the date you want the forecast to start
+    (forecast-to-csv 
+     today
+     '(30 6 10) ; this is the date you want the forecast to run to (it can be as far in the future as you like)
+     2000 ; this is your current bank balance, to start the forecast at
+   (my-bills today) ; this is your bills
+   nil))) ; set to true to open up the csv file with whatever application is set up to do that (windows only)
+}}}
+
+
