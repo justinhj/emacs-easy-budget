@@ -1,6 +1,4 @@
-#summary Introduction and usage
-
-#sidebar [TableOfContents]
+#sidebar TableOfContents
 
 = Introduction =
 
