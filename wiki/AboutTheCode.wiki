@@ -1,5 +1,9 @@
 #summary Notes on the source code
 
+= Code road map =
+
+All functions are documented and there's not a lot of code, but just to orient the interested, here are some notes.
+
 = date-util.el =
 
 Originally when I wrote this program I also wrote my own date library, which managed adding and subtracting dates, figuring out leap years and so on. Of course, emacs had all that already, so recently I refactored things to use only emacs date system. 
@@ -8,14 +12,29 @@ date-util.el contains some useful functions that I couldn't find in the emacs li
 
 For example in the budget app we often want to compare and manipulate days rather than exact times, so there are functions:
 
-`time-day-earlier`
-`time-day-later-or-equal`
-`time-add-days`
+{{{
+time-day-earlier
+time-day-later-or-equal
+time-add-days
+}}}
 
 As an aid to user input I have this function that turns a list into an emacs time
 
-`time-from-dd-mm-yyyy`
+{{{
+time-from-dd-mm-yyyy
+}}}
 
 = emacs-easy-budget.el =
 
-your content here.  Format your content with:
+The sample.el file calls `forecast-to-csv` which is the single entry point to the budget forecast. This handles setting up the output buffer, writing the .sv file and calling `show-balance-forecast-range` which actually calculates the budget forecast. 
+
+In a future version I will separate the calculation of the forecast transactions and the output, so they can be sorted by date and so on. 
+
+`show-balance-forecast-range` simply iterates a calendar day at a time from the start date to the end date, a week at a time. For each week it calculates if any of the due dates for the items fall between this weeks start and end. If they do, they are executed and the balance changes. The last-paid date is modified accordingly. 
+
+`days-until-due` calculates the next due date of an expense based on it's frequency type, and when it was last paid. This is called by `expense-calc-next-due`.
+
+Finally look at the structure definition for expense. This holds everything about an item that's important. The date it was last paid, and it's next due date, as well as the initial user information.
+
+Next [Ideas]
+
