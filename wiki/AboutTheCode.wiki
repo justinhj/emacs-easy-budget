@@ -1,0 +1,21 @@
+#summary Notes on the source code
+
+= date-util.el =
+
+Originally when I wrote this program I also wrote my own date library, which managed adding and subtracting dates, figuring out leap years and so on. Of course, emacs had all that already, so recently I refactored things to use only emacs date system. 
+
+date-util.el contains some useful functions that I couldn't find in the emacs libraries already. I may of course be wrong again, but regardless here they are. 
+
+For example in the budget app we often want to compare and manipulate days rather than exact times, so there are functions:
+
+`time-day-earlier`
+`time-day-later-or-equal`
+`time-add-days`
+
+As an aid to user input I have this function that turns a list into an emacs time
+
+`time-from-dd-mm-yyyy`
+
+= emacs-easy-budget.el =
+
+your content here.  Format your content with:
