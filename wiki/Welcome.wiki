@@ -1,5 +1,7 @@
 #summary Introduction and usage
 
+#sidebar TableOfContents
+
 = Introduction =
 
 emacs-easy-budget is a simple tool for producing short term forecasts of your bank balance.
@@ -56,7 +58,5 @@ If everything is set up correctly you will now have a file finances-082509.csv i
 If you set the last parameter to forecast-to-csv to true and your system is windows, then it will try to start your default viewer for csv files. 
 
 Next [AboutTheCode]
-
-
 
 
