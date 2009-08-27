@@ -12,6 +12,18 @@ Not particularly user friendly of course, and in future I may set this up to a r
 
 In addition user customization of the program output such as where the output file is stored and the format of each entry, would be useful and simple to add.  
 
+The output forecast looks like this (it's a csv file so you can do useful stuff with it)
+
+{{{
+Balance forecast beginning Aug 25 2009 -> Jun 30 2010
+
+(High $1260.00, Low $-300.00)
+
+26/08/2009, car loan, $40.00, $1960.00
+01/09/2009, salary, $-1000.00, $2960.00
+04/09/2009, car insurance, $20.00, $2940.00
+}}}
+
 = Making your own budget forecast =
 
 *Step 1: Copy the file sample.el and edit to include your own expenses and incomes*
