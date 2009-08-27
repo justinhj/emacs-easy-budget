@@ -1,4 +1,4 @@
-#summary Introduction and getting started
+#summary Introduction and usage
 
 = Introduction =
 
@@ -14,7 +14,7 @@ In addition user customization of the program output such as where the output fi
 
 = Making your own budget forecast =
 
-*Step 1: Edit the file sample.el to include your own expenses and incomes*
+*Step 1: Copy the file sample.el and edit to include your own expenses and incomes*
 
 Hopefully you have at least one income. You enter the amount as negative, since by default amounts are subtracted from the balance. _make-new-expense_ sets up a structure containing the data for a single expense/income. The first parameter is just a name, any string you like that describes the item. The next is the amount -1000 which can have a decimal point. Then there's a date, which is the last day this was paid, and is used to calculate when future items will occur. Dates are entered a as list containing the day month and year. I should add an option to let you reverse the format (dd mm yyyy). You can enter a two digit year if you prefer and it will be adjusted to a four digit one. Finally 'monthly indicates that this item that item will happen again in one month. Other supported options are 'bimonthly, 'biweekly and 'weekly.
 
@@ -46,5 +46,17 @@ You need to edit the code so that today is set to the current date (or the date 
    (my-bills today) ; this is your bills
    nil))) ; set to true to open up the csv file with whatever application is set up to do that (windows only)
 }}}
+
+Now run the code
+
+M-x eval-buffer
+
+If everything is set up correctly you will now have a file finances-082509.csv in the same folder you ran sample.el.
+
+If you set the last parameter to forecast-to-csv to true and your system is windows, then it will try to start your default viewer for csv files. 
+
+Next [AboutTheCode]
+
+
 
 
