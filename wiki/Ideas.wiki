@@ -1,4 +1,4 @@
-#summary Ideas to improve this program
+#sidebar TableOfContents
 
 = Ideas =
 
