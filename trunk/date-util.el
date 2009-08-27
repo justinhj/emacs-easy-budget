@@ -4,6 +4,8 @@
 ;; This file is *NOT* part of GNU Emacs, it is part of emacs-easy-budget 
 ;; which is released under license GPL v3
 
+(require 'timezone)
+
 (defconst time-seconds-in-day
   (* 60 60 24)
   "Number of seconds in a day")
