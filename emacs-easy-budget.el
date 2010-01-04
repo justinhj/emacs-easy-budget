@@ -9,11 +9,9 @@
 ;; which is released under license GPL v3
 
 ; TODO 
-;   move this list to the google code issue list
-;   let user pass in format function for printing items
-;   monthly and bi monthly payments should have the day they fall on stored 
+; DONE need to actually begin at earliest last paid date so you don't miss any payments
 ; DONE use emacs dates, nothing from my emacs library (so you can release and blog it)
-;   sort transactions by date
+; DESIGN  sort transactions by date
 ; DONE remember high and low balance then display
 ;   
 ; bugs
@@ -23,6 +21,14 @@
 ;   excel is set to dd.mm in my locale
 
 (require 'date-util)
+
+;;* custom
+(defgroup emacs-easy-budget nil
+  "emacs-easy-budget.el is a simple budget forecasting program for emacs
+twit.el also makes use of the Todochiku package, which you can install from here:
+http://www.emacswiki.org/emacs/todochiku.el"
+  :version "0.1"
+  :group 'emacs-easy-budget)
 
 (defstruct expense
   name
@@ -61,6 +67,23 @@ NEXT-DUE will be calculated"
 	   (+ 15 (- month-days (time-get-day date-last-paid)))))))
     (t (error "no handler for payment frequency %s" f))))
 
+(defun adjust-start-date-for-expense(expense start-date)
+  "if the due date for this expense is before the start date, then change the start date to be the dat
+it was last paid to make sure we don't miss any"
+  (let ((next-due
+	 (time-add-days 
+	  (expense-last-paid expense) 
+	  (days-until-due (expense-frequency expense) (expense-last-paid expense)))))
+    (if (time-day-earlier next-due start-date)
+	(expense-last-paid expense) 
+      start-date)))
+
+(defun calculate-adjusted-start-date(expenses start-date)
+  "adjusts the start date, so no payments are missed."
+  (dolist (e expenses)
+    (setf start-date (adjust-start-date-for-expense e start-date)))
+  start-date)
+
 (defun expense-calc-next-due(expense)
   "Figure out the date an expense will be due, set the next-due field appropriately"
   (setf (expense-next-due expense)
@@ -75,6 +98,7 @@ NEXT-DUE will be calculated"
   "Calculate and show the running balance foar a specified range of dates
 This is formatted so that saving as a .csv file will result in a spreadsheet with a format
 date, payee, amount, balance"
+  (setf current-date (calculate-adjusted-start-date expenses current-date))
   (insert (format "Balance forecast beginning %s -> %s\n" 
 		  (time-to-string-mmm-dd-yyyy current-date)
 		  (time-to-string-mmm-dd-yyyy end-date)))
